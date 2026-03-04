@@ -19,36 +19,44 @@ interface CodeExampleProps {
   centerVertically?: boolean;
 }
 
-export const HERO_AGENTS_MD = `# Pamela
+export const HERO_AGENTS_MD = `# Rust/codex-rs
 
-- Project owner: Pamela
-- Replace all references to "my cool project" with "Pamela".
-- Keep docs in sync with this hero block content.
-- Run \`pnpm lint\` and \`pnpm test\` before merging.`;
+- Crate names are prefixed with \`codex-\`. For example, the \`core\` crate is \`codex-core\`.
+- When using \`format!\` and you can inline variables into {}, always do that.
+- Install any commands the repo relies on (e.g. \`just\`, \`rg\`, \`cargo-insta\`) before running.
+- Always collapse if statements per Clippy collapsible_if.
+- Always inline format! args per Clippy uninlined_format_args.
+- Use method references over closures per Clippy redundant_closure_for_method_calls.
+- Make \`match\` statements exhaustive; avoid wildcard arms.
+- Prefer comparing equality of entire objects in tests over individual fields.
+
+Run \`just fmt\` after finishing Rust code changes, then run tests:
+- Run \`cargo test -p <changed-project>\` for the specific project.
+- For core/common changes, run \`cargo test\` or \`just test\`.`;
 
 const EXAMPLE_AGENTS_MD = `# Sample AGENTS.md file
 
 ## Dev environment tips
-- Use \`pnpm dlx turbo run where <project_name>\` to jump to a package instead \ 
+- Use \`pnpm dlx turbo run where <project_name>\` to jump to a package instead \
 of scanning with \`ls\`.
-- Run \`pnpm install --filter <project_name>\` to add the package to your \ 
-workspace so Vite, ESLint, and TypeScript can see it.
-- Use \`pnpm create vite@latest <project_name> -- --template react-ts\` to \ 
-spin up a new React + Vite package with TypeScript checks ready.
-- Check the name field inside each package's package.json to confirm the \ 
-right name—skip the top-level one.
+- Run \`pnpm install --filter <project_name>\` to add the package to your \
+ workspace so Vite, ESLint, and TypeScript can see it.
+- Use \`pnpm create vite@latest <project_name> -- --template react-ts\` to \
+ spin up a new React + Vite package with TypeScript checks ready.
+- Check the name field inside each package's package.json to confirm the \
+ right name—skip the top-level one.
 
 ## Testing instructions
 - Find the CI plan in the .github/workflows folder.
-- Run \`pnpm turbo run test --filter <project_name>\` to run every check \ 
-defined for that package.
-- From the package root you can just call \`pnpm test\`. The commit should \ 
-pass all tests before you merge.
-- To focus on one step, add the Vitest pattern: \`pnpm vitest run -t "<test \ 
-name>"\`.
+- Run \`pnpm turbo run test --filter <project_name>\` to run every check \
+ defined for that package.
+- From the package root you can just call \`pnpm test\`. The commit should \
+ pass all tests before you merge.
+- To focus on one step, add the Vitest pattern: \`pnpm vitest run -t "<test \
+ name>"\`.
 - Fix any test or type errors until the whole suite is green.
-- After moving files or changing imports, run \`pnpm lint --filter \ 
-<project_name>\` to be sure ESLint and TypeScript rules still pass.
+- After moving files or changing imports, run \`pnpm lint --filter \
+ <project_name>\` to be sure ESLint and TypeScript rules still pass.
 - Add or update tests for the code you change, even if nobody asked.
 
 ## PR instructions
@@ -143,7 +151,7 @@ export default function CodeExample({
       <div className="relative">
         <button
           onClick={copyToClipboard}
-          className={`absolute right-3 p-2 rounded-md bg-transparent text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover.bg-gray-800 transition-colors z-10 cursor-pointer ${
+          className={`absolute right-3 p-2 rounded-md bg-transparent text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors z-10 cursor-pointer {
             centerVertically ? "top-1/2 -translate-y-1/2" : "top-3"
           }`}
           aria-label="Copy to clipboard"
@@ -167,9 +175,9 @@ export default function CodeExample({
           )}
         </button>
         <pre
-          className={`relative rounded-lg bg-white dark:bg-black text-gray-800 dark:text-gray-100 text-xs leading-6 overflow-x-auto p-4 ${
+          className={`relative rounded-lg bg-white dark:bg-black text-gray-800 dark:text-gray-100 text-xs leading-6 overflow-x-auto p-4 {
             centerVertically ? "flex items-center" : ""
-          } ${
+          } {
             heightClass
               ? heightClass
               : compact
