@@ -19,17 +19,20 @@ interface CodeExampleProps {
   centerVertically?: boolean;
 }
 
-export const HERO_AGENTS_MD = `# AGENTS.md
+export const HERO_AGENTS_MD = `# Rust/codex-rs
 
-## Setup commands
-- Install deps: \`pnpm install\`
-- Start dev server: \`pnpm dev\`
-- Run tests: \`pnpm test\`
+- Crate names are prefixed with \`codex-\`. For example, the \`core\` crate is \`codex-core\`.
+- When using \`format!\` and you can inline variables into {}, always do that.
+- Install any commands the repo relies on (e.g. \`just\`, \`rg\`, \`cargo-insta\`) before running.
+- Always collapse if statements per Clippy collapsible_if.
+- Always inline format! args per Clippy uninlined_format_args.
+- Use method references over closures per Clippy redundant_closure_for_method_calls.
+- Make \`match\` statements exhaustive; avoid wildcard arms.
+- Prefer comparing equality of entire objects in tests over individual fields.
 
-## Code style
-- TypeScript strict mode
-- Single quotes, no semicolons
-- Use functional patterns where possible`;
+Run \`just fmt\` after finishing Rust code changes, then run tests:
+- Run \`cargo test -p <changed-project>\` for the specific project.
+- For core/common changes, run \`cargo test\` or \`just test\`.`;
 
 const EXAMPLE_AGENTS_MD = `# Sample AGENTS.md file
 
