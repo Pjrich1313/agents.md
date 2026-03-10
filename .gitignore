@@ -147,3 +147,9 @@ vite.config.ts.timestamp-*
 
 # Misc
 .DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
