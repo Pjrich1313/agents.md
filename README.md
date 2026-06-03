@@ -60,3 +60,4 @@ Public-repository verification for GitHub user `Pjrich1313` (2026-06-03):
   - `Pamela-Richardson13`
   - `Pjrich1313`
   - `d1-get-started`
+  - `agents.md`
