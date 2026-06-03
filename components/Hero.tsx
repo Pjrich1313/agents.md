@@ -37,7 +37,10 @@ export default function Hero() {
             predictable place to provide the context and instructions to help AI coding agents work on your project.
           </p>
 
-        <div className="mt-6 flex gap-4 flex-col sm:flex-row w-full sm:w-auto justify-center sm:justify-start">
+        <nav
+          aria-label="Primary actions"
+          className="mt-6 flex gap-4 flex-col sm:flex-row w-full sm:w-auto justify-center sm:justify-start"
+        >
           {/* Primary CTA — scroll to the Examples section */}
           <a
             href="#examples"
@@ -55,7 +58,7 @@ export default function Hero() {
             <GitHubIcon className="w-4 h-4 text-current" />
             View on GitHub
           </a>
-        </div>
+        </nav>
         </div>
         <div className="w-full md:max-w-none">
           <CodeExample

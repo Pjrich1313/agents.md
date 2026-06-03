@@ -44,6 +44,7 @@ export default function HowToUseSection() {
 
   return (
     <Section
+      id="how-to-use"
       title="How to use AGENTS.md?"
       className="py-12"
       center
