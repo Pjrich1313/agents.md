@@ -168,7 +168,7 @@ def main() -> int:
         files = resolve_sources(args.source_dir, args.pattern)
         batches = build_batches(files, args.batch_size, args.max_bytes)
         LOGGER.info(
-            "Batch unit defined: total_files=%s total_batches=%s batch_size=%s max_bytes=%s",
+            "Batch configuration initialized: total_files=%s total_batches=%s batch_size=%s max_bytes=%s",
             len(files),
             len(batches),
             args.batch_size,

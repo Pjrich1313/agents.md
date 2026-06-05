@@ -50,14 +50,14 @@ that explains the project’s goals in a simple way, and featuring some examples
 
 ## Batch source processing helper
 
-This repository includes `/tmp/workspace/Pjrich1313/agents.md/batch_source.py` for batching source files, running a pilot batch, retrying failed batches, and producing one merged output file.
+This repository includes `batch_source.py` for batching source files, running a pilot batch, retrying failed batches, and producing one merged output file.
 
 Example:
 
 ```bash
-python /tmp/workspace/Pjrich1313/agents.md/batch_source.py \
-  /tmp/workspace/Pjrich1313/agents.md/components \
-  /tmp/workspace/Pjrich1313/agents.md/tmp/components-merged.txt \
+python batch_source.py \
+  ./components \
+  ./tmp/components-merged.txt \
   --pattern "*.tsx" \
   --batch-size 5 \
   --max-bytes 120000 \
