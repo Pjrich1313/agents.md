@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from functools import partial
 import logging
 import sys
 import time
@@ -111,14 +112,14 @@ def process_batch(batch_index: int, batch: list[Path], batch_output_dir: Path, s
     return out_path
 
 
-def run_with_retries(batch_index: int, retries: int, delay: float, fn) -> Path:
+def run_with_retries(batch_index: int, retries: int, delay: float, process_fn) -> Path:
     attempt = 0
     current_delay = delay
     while True:
         attempt += 1
         try:
             LOGGER.info("Processing batch %s (attempt %s)", batch_index, attempt)
-            return fn()
+            return process_fn()
         except Exception as exc:  # noqa: BLE001
             if attempt > retries:
                 LOGGER.error("Batch %s failed after %s attempts: %s", batch_index, attempt, exc)
@@ -190,7 +191,7 @@ def main() -> int:
                 idx,
                 retries=args.retries,
                 delay=args.retry_delay,
-                fn=lambda i=idx, b=batch: process_batch(i, b, temp_dir, args.source_dir),
+                process_fn=partial(process_batch, idx, batch, temp_dir, args.source_dir),
             )
             batch_outputs.append(output)
 
