@@ -145,5 +145,17 @@ vite.config.ts.timestamp-*
  *.pem
 .vercel
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
 # Misc
 .DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
