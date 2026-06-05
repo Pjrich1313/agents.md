@@ -17,7 +17,7 @@ to provide context and instructions to help AI coding agents work on your projec
    ```bash
    pnpm run dev
    ```
-3. Open http://localhost:3000
+3. Open [http://localhost:3000](http://localhost:3000)
 
 ## Validation commands
 
