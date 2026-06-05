@@ -7,6 +7,29 @@
 Think of AGENTS.md as a README for agents: a dedicated, predictable place
 to provide context and instructions to help AI coding agents work on your project.
 
+## Quick start (website)
+
+1. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+2. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+3. Open http://localhost:3000
+
+## Validation commands
+
+Run these before opening or updating a PR:
+
+```bash
+pnpm lint
+pnpm build
+```
+
+Note: this repository currently does not define a `test` script in `package.json`.
+
 Below is a minimal example of an AGENTS.md file:
 
 ```markdown
@@ -37,17 +60,6 @@ Below is a minimal example of an AGENTS.md file:
 This repository also includes a basic Next.js website hosted at https://agents.md/
 that explains the project’s goals in a simple way, and featuring some examples.
 
-### Running the app locally
-1. Install dependencies:
-   ```bash
-   pnpm install
-   ```
-2. Start the development server:
-   ```bash
-   pnpm run dev
-   ```
-3. Open your browser and go to http://localhost:3000
-
 ## Batch source processing helper
 
 This repository includes `batch_source.py` for batching source files, running a pilot batch, retrying failed batches, and producing one merged output file.
@@ -63,3 +75,13 @@ python batch_source.py \
   --max-bytes 120000 \
   --retries 3
 ```
+
+## PR #39 restoration summary
+
+The current branch restores and keeps in sync the following project files and setup:
+
+- `batch_source.py` (batch processing helper with pilot run/retries/merge output)
+- ESLint setup files (`eslint.config.mjs`, `.eslintrc.json`)
+- Documentation and config files (`CHANGES.md`, `realtime_example.py`, `.env.example`, `vercel.json`, `agents.md`)
+- CI workflow (`.github/workflows/webpack.yml`)
+- `package.json` updates for ESLint dev dependencies and `next@16.1.6`

@@ -1,5 +1,25 @@
 # Changes Summary
 
+## PR #39 – Restored files and config alignment
+
+### Summary
+
+This PR restores key project files and aligns local tooling/configuration so the repository is easier to understand and maintain.
+
+### Restored files
+
+- `batch_source.py` — batch processing helper (pilot run, retries, merge output)
+- `eslint.config.mjs` and `.eslintrc.json` — ESLint flat/compat configuration setup
+- `CHANGES.md`, `realtime_example.py`, `.env.example`, `vercel.json`, `agents.md`
+- `.github/workflows/webpack.yml` — CI workflow
+
+### Dependency and package updates
+
+- Updated `package.json` to include ESLint dev dependencies
+- Updated Next.js to `16.1.6`
+
+---
+
 ## Overview
 
 This branch consolidates the work from open pull requests as of two weeks prior (2026-02-17)
