@@ -15,7 +15,7 @@ to provide context and instructions to help AI coding agents work on your projec
    ```
 2. Start the development server:
    ```bash
-   pnpm dev
+   pnpm run dev
    ```
 3. Open http://localhost:3000
 
@@ -75,13 +75,3 @@ python batch_source.py \
   --max-bytes 120000 \
   --retries 3
 ```
-
-## PR #39 restoration summary
-
-The current branch restores and keeps in sync the following project files and setup:
-
-- `batch_source.py` (batch processing helper with pilot run/retries/merge output)
-- ESLint setup files (`eslint.config.mjs`, `.eslintrc.json`)
-- Documentation and config files (`CHANGES.md`, `realtime_example.py`, `.env.example`, `vercel.json`, `agents.md`)
-- CI workflow (`.github/workflows/webpack.yml`)
-- `package.json` updates for ESLint dev dependencies and `next@16.1.6`
