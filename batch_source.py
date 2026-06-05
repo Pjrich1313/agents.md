@@ -9,7 +9,7 @@ import logging
 import sys
 import time
 from pathlib import Path
-from typing import Iterable
+from typing import Callable, Iterable
 
 
 LOGGER = logging.getLogger("batch_source")
@@ -38,7 +38,7 @@ def parse_args() -> argparse.Namespace:
         "--max-bytes",
         type=int,
         default=200_000,
-        help="Optional max cumulative bytes per batch (default: 200000, 0 disables).",
+        help="Max cumulative bytes per batch (default: 200000, set 0 to disable).",
     )
     parser.add_argument(
         "--retries",
@@ -112,23 +112,30 @@ def process_batch(batch_index: int, batch: list[Path], batch_output_dir: Path, s
     return out_path
 
 
-def run_with_retries(batch_index: int, retries: int, delay: float, process_fn) -> Path:
+def run_with_retries(
+    batch_index: int,
+    retries: int,
+    delay: float,
+    process_fn: Callable[[], Path],
+) -> Path:
+    """Run a batch processor with exponential-backoff retries."""
     attempt = 0
     current_delay = delay
+    max_attempts = retries + 1
     while True:
         attempt += 1
         try:
             LOGGER.info("Processing batch %s (attempt %s)", batch_index, attempt)
             return process_fn()
         except Exception as exc:  # noqa: BLE001
-            if attempt > retries:
+            if attempt >= max_attempts:
                 LOGGER.error("Batch %s failed after %s attempts: %s", batch_index, attempt, exc)
                 raise
             LOGGER.warning(
                 "Batch %s failed on attempt %s/%s: %s. Retrying in %.2fs",
                 batch_index,
                 attempt,
-                retries + 1,
+                max_attempts,
                 exc,
                 current_delay,
             )
@@ -137,6 +144,7 @@ def run_with_retries(batch_index: int, retries: int, delay: float, process_fn) -
 
 
 def run_pilot_batch(first_batch: list[Path], batch_output_dir: Path, source_root: Path) -> Path:
+    """Process the first batch as a pilot to validate output and performance."""
     start = time.perf_counter()
     output_path = process_batch(1, first_batch, batch_output_dir, source_root)
     duration = time.perf_counter() - start
@@ -151,6 +159,7 @@ def run_pilot_batch(first_batch: list[Path], batch_output_dir: Path, source_root
 
 
 def merge_batch_outputs(batch_outputs: list[Path], output_file: Path) -> None:
+    """Merge all batch output fragments into one final output file."""
     output_file.parent.mkdir(parents=True, exist_ok=True)
     with output_file.open("w", encoding="utf-8") as merged:
         for batch_output in batch_outputs:
@@ -168,6 +177,8 @@ def main() -> int:
     try:
         files = resolve_sources(args.source_dir, args.pattern)
         batches = build_batches(files, args.batch_size, args.max_bytes)
+        if not batches:
+            raise ValueError("No batches were created from the selected source files")
         LOGGER.info(
             "Batch configuration initialized: total_files=%s total_batches=%s batch_size=%s max_bytes=%s",
             len(files),
@@ -181,11 +192,11 @@ def main() -> int:
 
         batch_outputs: list[Path] = []
 
-        # Step 1/2: Pilot run
+        # Pilot run
         pilot_output = run_pilot_batch(batches[0], temp_dir, args.source_dir)
         batch_outputs.append(pilot_output)
 
-        # Step 3/4: Scale across remaining batches with retries
+        # Scale across remaining batches with retries
         for idx, batch in enumerate(batches[1:], start=2):
             output = run_with_retries(
                 idx,
