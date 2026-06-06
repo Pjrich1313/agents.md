@@ -91,8 +91,7 @@ const agents: AgentEntry[] = [
     imageSrc: "/logos/warp.svg",
   },
   {
-    name: "Copilot coding agent",
-    from: "GitHub",
+    name: "GitHub Copilot",
     url: "https://gh.io/coding-agent-docs",
     imageSrc: "/logos/copilot.svg",
   },
