@@ -1,7 +1,7 @@
 import Section from "@/components/Section";
 
 const AboutSection = () => (
-  <Section title="About" className="pb-0" center maxWidthClass="max-w-3xl">
+  <Section id="about" title="About" className="pb-0" center maxWidthClass="max-w-3xl">
     <p className="max-w-3xl">
       AGENTS.md emerged from collaborative efforts across the AI software
       development ecosystem, including{" "}

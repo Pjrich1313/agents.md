@@ -47,3 +47,17 @@ that explains the project’s goals in a simple way, and featuring some examples
    pnpm run dev
    ```
 3. Open your browser and go to http://localhost:3000
+
+## Audit note
+
+Public-repository verification for GitHub user `Pjrich1313` (2026-06-03):
+
+- No public repository named `wave` was found.
+- Public repositories found:
+  - `shiny-lamp`
+  - `bug-free-octo-barnacle`
+  - `Pamela-Richardson`
+  - `Pamela-Richardson13`
+  - `Pjrich1313`
+  - `d1-get-started`
+  - `agents.md`
